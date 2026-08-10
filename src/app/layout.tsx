@@ -1,0 +1,75 @@
+import type { Metadata } from 'next'
+import { Newsreader, Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
+// Leaflet's stylesheet, self-hosted from node_modules (the /mapa view needs it).
+// Imported here in the root layout — not inside the dynamically-loaded map
+// component, where Next didn't apply it — so it's bundled and served from
+// 'self', keeping the app's CSP (style-src 'self') intact instead of loading it
+// from the unpkg CDN.
+import 'leaflet/dist/leaflet.css'
+import { Navbar } from '@/components/Navbar'
+import { NumerosEmergencia } from '@/components/NumerosEmergencia'
+import { OfflineBanner } from '@/components/OfflineBanner'
+import { MotionPrefProvider } from '@/components/MotionPrefs'
+import { SideRails } from '@/components/SideRails'
+
+// Editorial pairing: a screen-optimized news serif for the masthead and
+// headlines, a workhorse sans for UI, data and body copy.
+const serif = Newsreader({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+})
+
+const sans = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+export const metadata: Metadata = {
+  title: 'Venezuela Sismo 24 jun — Feed verificado',
+  description: 'Noticias verificadas en tiempo real sobre los sismos del 24 de junio de 2026 en Venezuela.',
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/icon-192.png',
+    apple: '/icon-192.png',
+  },
+  openGraph: {
+    title: 'Venezuela Sismo 24 jun — Feed verificado',
+    description: 'Noticias verificadas en tiempo real sobre los sismos del 24 de junio de 2026 en Venezuela.',
+    type: 'website',
+    images: [{ url: '/og.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    // Browser extensions (ad blockers, antivirus DOM injectors, LanguageTool, etc.) add
+    // attributes to <html> and <body> before React hydrates — on either element, not just
+    // one. Without suppressHydrationWarning on both, that mismatch makes React discard and
+    // rebuild the whole tree, which can catch the Leaflet map mid-mount and crash it.
+    <html lang="es" className={`dark ${serif.variable} ${sans.variable}`} suppressHydrationWarning>
+      <body
+        className="bg-paper dark:bg-paper-dark text-ink dark:text-ink-dark min-h-screen font-sans antialiased"
+        suppressHydrationWarning
+      >
+        <OfflineBanner />
+        <MotionPrefProvider>
+          <Navbar />
+          <SideRails />
+          {children}
+          <NumerosEmergencia />
+        </MotionPrefProvider>
+        <Analytics />
+      </body>
+    </html>
+  )
+}

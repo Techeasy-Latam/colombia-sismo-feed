@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-paper text-ink;
+  }
+
+  .dark body {
+    @apply bg-paper-dark text-ink-dark;
+  }
+
+  /* Skeleton theming — base fill + sweeping shine, per color scheme. */
+  :root {
+    --skeleton-base: #E2E1DC;
+    --skeleton-shine: rgba(255, 255, 255, 0.6);
+    --sismo-grid: rgba(23, 23, 26, 0.05);
+    color-scheme: light;
+  }
+  .dark {
+    --skeleton-base: #2A2B31;
+    --skeleton-shine: rgba(255, 255, 255, 0.14);
+    --sismo-grid: rgba(233, 233, 230, 0.04);
+    color-scheme: dark;
+  }
+
+  /* Ensure dropdown options render with proper background and text color */
+  option {
+    background-color: #FFFFFF;
+    color: #17171A;
+  }
+  .dark option {
+    background-color: #161616;
+    color: #E9E9E6;
+  }
+
+  /* Editorial display copy uses the news serif. */
+  .font-serif {
+    font-feature-settings: 'kern' 1, 'liga' 1, 'onum' 1;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-crisis-red ring-offset-2 ring-offset-paper;
+  }
+
+  .dark :focus-visible {
+    @apply ring-offset-paper-dark;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Tabular figures for data/timestamps so columns align. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* Loading placeholder: a muted fill with a shine sweeping across it. Theme-aware
+     via the --skeleton-* vars. The prefers-reduced-motion rule below freezes the
+     sweep off-screen, leaving a static muted block. */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--skeleton-base);
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--skeleton-shine),
+      transparent
+    );
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* Seismogram chart paper: fine theme-aware grid behind the no-image
+     placeholder trace. */
+  .sismo-paper {
+    background-image:
+      repeating-linear-gradient(0deg, var(--sismo-grid) 0, var(--sismo-grid) 1px, transparent 1px, transparent 14px),
+      repeating-linear-gradient(90deg, var(--sismo-grid) 0, var(--sismo-grid) 1px, transparent 1px, transparent 14px);
+  }
+
+  /* Image-loading trace: the line draws in from the left and erases behind
+     itself, like a live pen feed. Requires pathLength=1 on the path so the
+     dash length equals the full trace. Base state is the fully-drawn trace:
+     the global prefers-reduced-motion rule collapses the animation to one
+     instant iteration, which lands back on that static visible state. */
+  .sismo-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    animation: sismo-draw 2.2s linear infinite;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sismo-draw {
+  from { stroke-dashoffset: 2; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pcSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-pc-slide-up {
+  animation: pcSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom styling for Leaflet to match the project's editorial theme */
+.leaflet-container {
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif !important;
+  background-color: var(--skeleton-base) !important;
+}
+
+.leaflet-bar {
+  border: 1px solid #E2E1DC !important;
+  box-shadow: 0 1px 2px rgba(20,19,17,0.04) !important;
+  border-radius: 4px !important;
+  overflow: hidden;
+}
+
+.dark .leaflet-bar {
+  border-color: #2A2B31 !important;
+}
+
+.leaflet-bar a {
+  background-color: #FFFFFF !important;
+  color: #17171A !important;
+  border-bottom: 1px solid #E2E1DC !important;
+  transition: background-color 150ms, color 150ms;
+}
+
+.dark .leaflet-bar a {
+  background-color: #161616 !important;
+  color: #E9E9E6 !important;
+  border-bottom-color: #2A2B31 !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: #F4F4F2 !important;
+  color: #CF1020 !important;
+}
+
+.dark .leaflet-bar a:hover {
+  background-color: #2A2B31 !important;
+  color: #CF1020 !important;
+}
+
+.leaflet-bar a:last-child {
+  border-bottom: none !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: #FFFFFF !important;
+  color: #17171A !important;
+  border: 1px solid #E2E1DC !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(20,19,17,0.04), 0 12px 28px rgba(20,19,17,0.10) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.dark .leaflet-popup-content-wrapper {
+  background-color: #161616 !important;
+  color: #E9E9E6 !important;
+  border-color: #2A2B31 !important;
+}
+
+.leaflet-popup-content {
+  margin: 12px 16px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+}
+
+.leaflet-popup-tip {
+  background-color: #FFFFFF !important;
+  box-shadow: none !important;
+  border: 1px solid #E2E1DC;
+}
+
+.dark .leaflet-popup-tip {
+  background-color: #161616 !important;
+  border-color: #2A2B31;
+}
+
+.leaflet-popup-close-button {
+  color: #6B6B66 !important;
+  padding: 6px 12px 0 0 !important;
+  transition: color 150ms;
+}
+
+.dark .leaflet-popup-close-button {
+  color: #9A9A93 !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #CF1020 !important;
+  background: transparent !important;
+}
+

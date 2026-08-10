@@ -1,0 +1,124 @@
+'use client'
+
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import CardImage, { SismoTrace, TagPill } from './CardImage'
+
+export interface NoticiaGaleria {
+  id: string
+  titulo: string
+  descripcion: string | null
+  url: string
+  fuente: string
+  tag: string | null
+  publicado_at: string
+  imagen_url: string | null  // feed query filters NULL and '' (the ingest backfill's "scraped, none found" sentinel); still guarded defensively below
+}
+
+// Presentational only — `noticias` is a slice of the shared FeedNoticias pool
+// (galería → portada → curadas → feed), so nothing repeats across the sections.
+export default function GaleriaHero({ noticias, cargando }: { noticias: NoticiaGaleria[]; cargando: boolean }) {
+  if (!cargando && noticias.length === 0) return null
+
+  return (
+    <section className="px-4 sm:px-6 pt-4 sm:pt-5 pb-2 mb-2 border-b border-rule dark:border-rule-dark">
+      <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-ink-muted dark:text-ink-muted-dark mb-4">
+        <GalleryIcon />
+        Últimas imágenes del sismo
+      </p>
+
+      {cargando ? (
+        // Mirrors the real card below (aspect-video image + title + meta) so the
+        // layout doesn't shift when content arrives.
+        <div className="flex gap-4 pb-4">
+          {[1, 2, 3].map(i => (
+            <div
+              key={i}
+              className="w-[300px] flex-shrink-0 rounded-sm overflow-hidden bg-panel dark:bg-panel-dark border border-rule dark:border-rule-dark"
+            >
+              <div className="relative aspect-video w-full skeleton">
+                <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 1 }}>
+                  <SismoTrace animated className="w-28 h-10 text-crisis-red/40 dark:text-crisis-red/50" />
+                </div>
+              </div>
+              <div className="p-4">
+                {/* Same box model as the real card: fixed width + aspect-video image +
+                    a 2-line (min-h-[2.5rem]) title region + one meta line. Identical
+                    height, so the swap to content causes zero layout shift. */}
+                <div className="min-h-[2.5rem] mb-1.5 space-y-1.5">
+                  <div className="h-3 w-full rounded skeleton" />
+                  <div className="h-3 w-2/3 rounded skeleton" />
+                </div>
+                <div className="h-2.5 w-1/2 rounded skeleton" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex gap-4 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {noticias.map((n, i) => (
+            <motion.a
+              key={n.id}
+              href={n.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0, transition: { delay: Math.min(i, 6) * 0.06 } }}
+              whileHover={{ y: -3 }}
+              className="w-[300px] flex-shrink-0 rounded-sm overflow-hidden bg-panel dark:bg-panel-dark border border-rule dark:border-rule-dark hover:bg-ink/[0.01] dark:hover:bg-ink-dark/[0.01] hover:border-crisis-red/30 transition-all duration-200"
+            >
+              {n.imagen_url && <GaleriaImagen src={n.imagen_url} alt={n.titulo} tag={n.tag} />}
+              <div className="p-4">
+                {/* min-h reserves 2 title lines so a 1-line title doesn't shorten the
+                    card; truncate keeps the meta to a single line. Fixed width above +
+                    these = constant card height, identical to the skeleton. */}
+                <h3 className="font-serif font-semibold text-sm text-ink dark:text-ink-dark line-clamp-2 min-h-[2.5rem] mb-1.5">{n.titulo}</h3>
+                <p className="font-mono text-[11px] text-ink-muted dark:text-ink-muted-dark tracking-wide truncate">{n.fuente} · {tiempoRelativo(n.publicado_at)}</p>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}
+
+// Gallery thumbnail: CardImage owns the load lifecycle (seismograph loading
+// trace, then crossfade). On error the whole slot is removed (the card keeps
+// just its title/meta), matching the previous behaviour.
+function GaleriaImagen({ src, alt, tag }: { src: string; alt: string; tag: string | null }) {
+  const [failed, setFailed] = useState(false)
+
+  if (failed) return null
+
+  return (
+    <div className="relative aspect-video w-full bg-panel dark:bg-panel-dark">
+      <CardImage src={src} alt={alt} onError={() => setFailed(true)} />
+      {tag && (
+        <span className="absolute top-2 left-2">
+          <TagPill tag={tag} />
+        </span>
+      )}
+    </div>
+  )
+}
+
+// Same outline-icon vocabulary as the rest of the app (BellIcon, ExportIcon,
+// ThemeIcon): stroke=currentColor, strokeWidth 2, round caps, no fill.
+function GalleryIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <circle cx="9" cy="9" r="2" />
+      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+    </svg>
+  )
+}
+
+function tiempoRelativo(iso: string): string {
+  const diff = Math.floor((Date.now() - new Date(iso).getTime()) / 60000)
+  if (isNaN(diff) || diff < 0) return ''
+  if (diff < 60) return `${diff}m`
+  if (diff < 1440) return `${Math.floor(diff / 60)}h`
+  return `${Math.floor(diff / 1440)}d`
+}

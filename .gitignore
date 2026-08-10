@@ -1,0 +1,51 @@
+# Herramientas de análisis
+repomix-output.xml
+
+# Variables de entorno
+.env.local
+.env
+.env*.local
+
+# Dependencias
+/node_modules
+
+# Next.js
+/.next/
+/out/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Test build output (compiled by tsconfig.test.json before node --test)
+/dist-test/
+
+# PWA (workbox / next-pwa)
+public/sw.js
+public/workbox-*.js
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+package-lock.json
+
+# Agent skills (local tooling, reinstalled via `npx skills add ...`)
+# See PROGRESS.md Session 002 for the list and reinstall commands.
+.agents/
+
+# Playwright MCP artifacts and screenshots generated during local verification
+.playwright-mcp/
+screenshots/
+
+# Local agent tooling (not part of the app)
+.claude/
+.atl/
+.mcp.json

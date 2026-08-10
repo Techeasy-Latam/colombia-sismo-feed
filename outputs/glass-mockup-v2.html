@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Navbar — v2, más contenido y serio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { darkMode: 'class' }</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  .font-serif{font-family:'Newsreader',Georgia,serif}
+  .glass{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .bg-photo{background-size:cover;background-position:center}
+</style>
+</head>
+<body class="bg-[#EDECE7] text-[#17171A] dark:bg-[#0B0B0C] dark:text-[#E9E9E6]">
+
+  <div class="sticky top-0 z-50 bg-[#FDE68A] text-[#78350F] text-center text-[11px] font-bold uppercase tracking-widest py-1.5">
+    ⚠ Croquis v2 — corrigiendo: colores más apagados (sin saturate), y que se lea como una barra real
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-8 py-8 space-y-10">
+    <button id="darkToggle" class="text-[10px] uppercase tracking-widest border border-black/10 dark:border-white/10 rounded px-3 py-1.5">Cambiar tema</button>
+
+    <!-- ============ A. En reposo (arriba del todo, sin contenido detrás) ============ -->
+    <section>
+      <p class="text-[10px] uppercase tracking-widest text-[#6B6B66] dark:text-[#9A9A93] mb-2">A · En reposo — banda sólida como ahora, casi sin vidrio</p>
+      <div class="rounded border border-[#E2E1DC] dark:border-[#2A2B31] overflow-hidden">
+        <div class="h-1 bg-[#CF1020]"></div>
+        <div class="bg-[#F4F4F2] dark:bg-[#0D0D0D] border-b border-[#E2E1DC] dark:border-[#2A2B31]">
+          <div class="px-5 h-16 flex items-center gap-6">
+            <span class="flex items-center gap-2.5">
+              <svg viewBox="0 0 64 24" class="w-8 h-4 text-[#CF1020]" fill="none"><path d="M0 12 H10 L13 12 L16 4 L19 20 L22 8 L25 16 L28 12 H40 L43 6 L46 18 L49 12 H64" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+              <span class="font-serif text-lg font-semibold">Sismo Venezuela</span>
+            </span>
+            <span class="h-5 w-px bg-[#E2E1DC] dark:bg-[#2A2B31]"></span>
+            <nav class="hidden sm:flex items-center gap-6">
+              <span class="text-[11px] uppercase tracking-widest pb-1 border-b-2 border-[#CF1020]">Boletín</span>
+              <span class="text-[11px] uppercase tracking-widest text-[#6B6B66] dark:text-[#9A9A93]">Mapa sísmico</span>
+              <span class="text-[11px] uppercase tracking-widest text-[#6B6B66] dark:text-[#9A9A93]">Indicadores</span>
+            </nav>
+            <div class="flex-1"></div>
+            <button class="border border-[#E2E1DC] dark:border-[#2A2B31] rounded px-3 py-1.5 text-[10px] uppercase tracking-widest font-semibold flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 4.5 1.5 6.5 2 7H4c.5-.5 2-2.5 2-7"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              Activar alertas
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ B. Con scroll — acá aparece el vidrio, sutil, mismo color del sitio ============ -->
+    <section>
+      <p class="text-[10px] uppercase tracking-widest text-[#6B6B66] dark:text-[#9A9A93] mb-2">B · Cuando hay contenido detrás (al hacer scroll) — vidrio apagado, sin saturación, mismos grises/rojo de siempre</p>
+      <div class="rounded border border-[#E2E1DC] dark:border-[#2A2B31] overflow-hidden bg-photo h-40 relative" style="background-image:url('https://images.unsplash.com/photo-1541448723449-8d4d1a15e6d5?w=1200&q=60')">
+        <div class="absolute inset-x-0 top-0">
+          <div class="h-1 bg-[#CF1020]"></div>
+          <div class="glass bg-[#F4F4F2]/85 dark:bg-[#0D0D0D]/80 border-b border-[#E2E1DC]/70 dark:border-[#2A2B31]/70">
+            <div class="px-5 h-16 flex items-center gap-6">
+              <span class="flex items-center gap-2.5">
+                <svg viewBox="0 0 64 24" class="w-8 h-4 text-[#CF1020]" fill="none"><path d="M0 12 H10 L13 12 L16 4 L19 20 L22 8 L25 16 L28 12 H40 L43 6 L46 18 L49 12 H64" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+                <span class="font-serif text-lg font-semibold">Sismo Venezuela</span>
+              </span>
+              <span class="h-5 w-px bg-[#E2E1DC] dark:bg-[#2A2B31]"></span>
+              <nav class="hidden sm:flex items-center gap-6">
+                <span class="text-[11px] uppercase tracking-widest pb-1 border-b-2 border-[#CF1020]">Boletín</span>
+                <span class="text-[11px] uppercase tracking-widest text-[#6B6B66] dark:text-[#9A9A93]">Mapa sísmico</span>
+                <span class="text-[11px] uppercase tracking-widest text-[#6B6B66] dark:text-[#9A9A93]">Indicadores</span>
+              </nav>
+              <div class="flex-1"></div>
+              <button class="border border-[#E2E1DC] dark:border-[#2A2B31] rounded px-3 py-1.5 text-[10px] uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 4.5 1.5 6.5 2 7H4c.5-.5 2-2.5 2-7"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                Activar alertas
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-[#6B6B66] dark:text-[#9A9A93] mt-2 max-w-prose">
+        Diferencia clave con la v1: nada de <code>saturate()</code> (eso era lo que lo hacía ver "IA"/glossy), opacidad alta (85%) en vez de translúcido de verdad, esquinas sin redondear extra, botones cuadrados como ya ten&iacute;as — la barra se sigue leyendo como una barra sólida, con un vidrio casi imperceptible que solo se activa cuando hay algo detrás.
+      </p>
+    </section>
+  </div>
+
+<script>
+document.getElementById('darkToggle').addEventListener('click', () => document.documentElement.classList.toggle('dark'))
+</script>
+</body>
+</html>
