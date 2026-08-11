@@ -46,7 +46,7 @@ export function SismosUSGS() {
     if (min < 60) return `hace ${min} min`
     const h = Math.floor(min / 60)
     if (h < 24) return `hace ${h}h`
-    return new Date(timestamp).toLocaleDateString('es-VE', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+    return new Date(timestamp).toLocaleDateString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
   }
 
   const getMagStyle = (mag: number) => {

@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback, useRef, useMemo, type Dispatch, type 
 import { createPortal } from 'react-dom'
 import { createClient } from '@supabase/supabase-js'
 import { AnimatePresence, motion } from 'framer-motion'
-import { MapaVenezuelaSVG } from './MapaVenezuelaSVG'
+import { MapaColombiaSVG } from './MapaColombiaSVG'
 import GaleriaHero, { type NoticiaGaleria } from './GaleriaHero'
 import CardImage, { SismoPlaceholder, SismoTrace, TagPill } from './CardImage'
 import { TAGS, type TagInfo } from '@/lib/tags'
@@ -28,31 +28,40 @@ type Noticia = {
 }
 
 const ZONAS: { value: string; label: string }[] = [
-  { value: 'todos', label: 'Toda Venezuela' },
-  { value: 'la_guaira', label: 'La Guaira' },
-  { value: 'caracas', label: 'Caracas' },
-  { value: 'miranda', label: 'Miranda' },
-  { value: 'carabobo', label: 'Carabobo' },
-  { value: 'yaracuy', label: 'Yaracuy' },
-  { value: 'trujillo', label: 'Trujillo' },
-  { value: 'aragua', label: 'Aragua' },
-  { value: 'falcon', label: 'Falcón' },
-  { value: 'lara', label: 'Lara' },
-  { value: 'zulia', label: 'Zulia' },
-  { value: 'merida', label: 'Mérida' },
-  { value: 'tachira', label: 'Táchira' },
-  { value: 'barinas', label: 'Barinas' },
-  { value: 'portuguesa', label: 'Portuguesa' },
-  { value: 'guarico', label: 'Guárico' },
-  { value: 'anzoategui', label: 'Anzoátegui' },
-  { value: 'sucre', label: 'Sucre' },
-  { value: 'monagas', label: 'Monagas' },
-  { value: 'nueva_esparta', label: 'Nueva Esparta' },
-  { value: 'apure', label: 'Apure' },
+  { value: 'todos', label: 'Toda Colombia' },
+  { value: 'choco', label: 'Chocó' },
+  { value: 'valle_del_cauca', label: 'Valle del Cauca' },
+  { value: 'risaralda', label: 'Risaralda' },
+  { value: 'antioquia', label: 'Antioquia' },
+  { value: 'caldas', label: 'Caldas' },
+  { value: 'quindio', label: 'Quindío' },
+  { value: 'cauca', label: 'Cauca' },
+  { value: 'narino', label: 'Nariño' },
+  { value: 'bogota', label: 'Bogotá' },
+  { value: 'cundinamarca', label: 'Cundinamarca' },
+  { value: 'santander', label: 'Santander' },
+  { value: 'norte_de_santander', label: 'Norte de Santander' },
+  { value: 'tolima', label: 'Tolima' },
+  { value: 'huila', label: 'Huila' },
+  { value: 'boyaca', label: 'Boyacá' },
+  { value: 'atlantico', label: 'Atlántico' },
   { value: 'bolivar', label: 'Bolívar' },
+  { value: 'cesar', label: 'Cesar' },
+  { value: 'cordoba', label: 'Córdoba' },
+  { value: 'magdalena', label: 'Magdalena' },
+  { value: 'la_guajira', label: 'La Guajira' },
+  { value: 'sucre', label: 'Sucre' },
+  { value: 'meta', label: 'Meta' },
+  { value: 'casanare', label: 'Casanare' },
+  { value: 'arauca', label: 'Arauca' },
+  { value: 'caqueta', label: 'Caquetá' },
+  { value: 'putumayo', label: 'Putumayo' },
   { value: 'amazonas', label: 'Amazonas' },
-  { value: 'delta_amacuro', label: 'Delta Amacuro' },
-  { value: 'cojedes', label: 'Cojedes' },
+  { value: 'guainia', label: 'Guainía' },
+  { value: 'guaviare', label: 'Guaviare' },
+  { value: 'vaupes', label: 'Vaupés' },
+  { value: 'vichada', label: 'Vichada' },
+  { value: 'san_andres', label: 'San Andrés y Providencia' },
 ]
 
 // Color text + left border per category. No pill backgrounds. Re-exposed as a
@@ -87,7 +96,7 @@ function tiempoRelativo(iso: string) {
   if (min < 60) return `hace ${min} min`
   const h = Math.floor(min / 60)
   if (h < 24) return `hace ${h}h`
-  return date.toLocaleDateString('es-VE', { day: 'numeric', month: 'short' })
+  return date.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' })
 }
 
 function fuenteLabel(tipo: string, fuente: string) {
@@ -397,12 +406,12 @@ function ResumenEvento({ cifras }: { cifras: CifrasStats | null }) {
   // reciente extraída por el fact-checker entre las noticias aprobadas. Magnitud,
   // segundos y epicentro son hechos fijos del evento (no cambian) y quedan estáticos.
   const datos = [
-    { num: 'M7.2 + M7.5', label: 'Doblete sísmico', red: false },
-    { num: '40 seg', label: 'Entre sismos', red: false },
-    { num: 'Yaracuy / Carabobo', label: 'Epicentro', red: false },
-    { num: cifras?.muertos != null ? `~${cifras.muertos.toLocaleString('es-VE')}` : '~920', label: 'Muertos (aprox.)', red: true },
-    { num: cifras?.heridos != null ? `~${cifras.heridos.toLocaleString('es-VE')}` : '~3.360', label: 'Heridos', red: true },
-    { num: cifras?.desaparecidos != null ? `+${cifras.desaparecidos.toLocaleString('es-VE')}` : '+50.000', label: 'Desaparecidos', red: true },
+    { num: 'M7.4', label: 'Magnitud', red: false },
+    { num: '10 ago 2026', label: 'Fecha del sismo', red: false },
+    { num: 'Chocó (Pacífico)', label: 'Epicentro', red: false },
+    { num: cifras?.muertos != null ? `~${cifras.muertos.toLocaleString('es-CO')}` : '—', label: 'Muertos (aprox.)', red: true },
+    { num: cifras?.heridos != null ? `~${cifras.heridos.toLocaleString('es-CO')}` : '—', label: 'Heridos', red: true },
+    { num: cifras?.desaparecidos != null ? `+${cifras.desaparecidos.toLocaleString('es-CO')}` : '—', label: 'Desaparecidos', red: true },
   ]
 
   // Cada cifra es el máximo reportado — puede venir de noticias distintas, así
@@ -412,7 +421,7 @@ function ResumenEvento({ cifras }: { cifras: CifrasStats | null }) {
   const masVieja = fechas.length ? fechas.sort()[0] : null
   const footer = masVieja
     ? `Cifras máximas extraídas automáticamente de noticias verificadas · reportadas ${tiempoRelativo(masVieja)}`
-    : 'Cifras provisionales · 28 jun 2026 · Fuente: medios verificados'
+    : 'Cifras provisionales · pendientes de reportes verificados · Fuente: medios verificados'
 
   return (
     <div className="bg-panel dark:bg-panel-dark border border-rule dark:border-rule-dark p-4 rounded-sm mb-4">
@@ -451,7 +460,7 @@ function ResumenEvento({ cifras }: { cifras: CifrasStats | null }) {
                 </p>
               </div>
               <div className="lg:col-span-4 w-full max-w-[375px] mx-auto">
-                <MapaVenezuelaSVG />
+                <MapaColombiaSVG />
               </div>
             </div>
           </motion.div>
@@ -659,7 +668,7 @@ export function FeedNoticias({ initialData }: { initialData?: Noticia[] }) {
         }
         // Feature 5: browser notification for replicas
         if (nueva.tag === 'replicas' && notifPermisoRef.current === 'granted') {
-          new Notification('Réplica — Sismo Venezuela', {
+          new Notification('Réplica — Sismo Colombia', {
             body: nueva.titulo,
             icon: '/icon-192.png',
           })
@@ -677,12 +686,12 @@ export function FeedNoticias({ initialData }: { initialData?: Noticia[] }) {
 
   // Feature 6: export current feed to clipboard
   const handleExportar = useCallback(() => {
-    const fecha = new Date().toLocaleDateString('es-VE', { dateStyle: 'full' } as Intl.DateTimeFormatOptions)
+    const fecha = new Date().toLocaleDateString('es-CO', { dateStyle: 'full' } as Intl.DateTimeFormatOptions)
     const sep = '──────────────────────────────────────'
     const bloques = noticias.map(n =>
       `${sep}\n[${n.tag.toUpperCase()}] ${n.titulo}\n\n${n.fuente} · ${tiempoRelativo(n.publicado_at)}\n\n${n.url}`
     ).join('\n\n')
-    const texto = `SISMO VENEZUELA — BOLETÍN VERIFICADO\n\n${fecha}\n\n${noticias.length} noticias verificadas\n\n${bloques}`
+    const texto = `SISMO COLOMBIA — BOLETÍN VERIFICADO\n\n${fecha}\n\n${noticias.length} noticias verificadas\n\n${bloques}`
     if (navigator.clipboard) {
       navigator.clipboard.writeText(texto).catch(() => {})
     }
@@ -804,7 +813,7 @@ export function FeedNoticias({ initialData }: { initialData?: Noticia[] }) {
           <span className="font-mono text-[11px] tracking-widest text-crisis-red uppercase shrink-0">En vivo</span>
           <span className="h-3 w-px bg-rule dark:bg-rule-dark shrink-0" />
           <span className="font-mono text-[11px] text-ink-muted dark:text-ink-muted-dark tracking-wide truncate">
-            Sismo Venezuela · 24 jun 2026
+            Sismo Colombia · 10 ago 2026
           </span>
         </div>
         <div className="flex items-center sm:justify-end gap-4 shrink-0">

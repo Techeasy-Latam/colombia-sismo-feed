@@ -1,7 +1,7 @@
 {
-  "name": "Venezuela Sismo — Feed verificado",
-  "short_name": "VZLASismo",
-  "description": "Noticias verificadas en tiempo real sobre el sismo del 24 de junio de 2026 en Venezuela.",
+  "name": "Colombia Sismo — Feed verificado",
+  "short_name": "COLSismo",
+  "description": "Noticias verificadas en tiempo real sobre el sismo del 10 de agosto de 2026 en Chocó, Colombia.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

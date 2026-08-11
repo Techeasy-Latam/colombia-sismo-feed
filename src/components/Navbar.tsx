@@ -165,7 +165,7 @@ export function Navbar() {
             <Seismograph className="w-9 h-5 text-crisis-red shrink-0" />
             <span className="flex flex-col leading-none">
               <span className="font-serif text-xl font-semibold tracking-tight text-ink dark:text-ink-dark">
-                Sismo Venezuela
+                Sismo Colombia
               </span>
               <span className="text-eyebrow uppercase text-ink-muted dark:text-ink-muted-dark mt-0.5">
                 Boletín de emergencia

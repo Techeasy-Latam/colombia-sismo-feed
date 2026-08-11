@@ -12,10 +12,11 @@ const TAGS_VALIDOS = [
 ]
 
 const ZONAS_VALIDAS = [
-  'amazonas', 'anzoategui', 'apure', 'aragua', 'barinas', 'bolivar', 'carabobo',
-  'cojedes', 'delta_amacuro', 'distrito_capital', 'falcon', 'guarico', 'lara',
-  'merida', 'miranda', 'monagas', 'nueva_esparta', 'portuguesa', 'sucre',
-  'tachira', 'trujillo', 'vargas', 'yaracuy', 'zulia', 'la_guaira',
+  'amazonas', 'antioquia', 'arauca', 'atlantico', 'bogota', 'bolivar', 'boyaca',
+  'caldas', 'caqueta', 'casanare', 'cauca', 'cesar', 'choco', 'cordoba',
+  'cundinamarca', 'guainia', 'guaviare', 'huila', 'la_guajira', 'magdalena',
+  'meta', 'narino', 'norte_de_santander', 'putumayo', 'quindio', 'risaralda',
+  'san_andres', 'santander', 'sucre', 'tolima', 'valle_del_cauca', 'vaupes', 'vichada',
 ]
 
 export async function GET(req: NextRequest) {
