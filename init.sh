@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# One-time environment setup and integrity verification for vzla-sismo-feed.
+# One-time environment setup and integrity verification for colombia-sismo-feed.
 # Run from anywhere; the script pins itself to the repo root.
 
 # --- Setup ---

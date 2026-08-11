@@ -5,7 +5,7 @@
 brand
 
 ## Users
-Venezolanos en el país y en el exterior, así como la comunidad internacional, buscando formas seguras y directas de donar dinero o de enviar insumos para los afectados por el doblete sísmico del 24 de junio de 2026. Los usuarios se encuentran bajo una situación de alta tensión emocional y exigen información clara, fidedigna y libre de desinformación.
+Colombianos en el país y en el exterior, así como la comunidad internacional, buscando formas seguras y directas de donar dinero o de enviar insumos para los afectados por el sismo de magnitud 7.4 del 10 de agosto de 2026 en Chocó. Los usuarios se encuentran bajo una situación de alta tensión emocional y exigen información clara, fidedigna y libre de desinformación.
 
 ## Product Purpose
 Proveer una guía de donación centralizada, transparente y contrastada de manera rigurosa, que exponga los insumos prioritarios y los canales monetarios legítimos para mitigar estafas y agilizar la ayuda humanitaria.

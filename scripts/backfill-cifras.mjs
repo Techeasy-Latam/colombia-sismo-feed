@@ -24,7 +24,7 @@ if (!SUPABASE_URL || !SERVICE_KEY || !GROQ_KEY) {
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY)
 
-const CIFRAS_PROMPT = `Analiza el siguiente titular y descripción de una noticia sobre el sismo de Venezuela del 24 de junio de 2026.
+const CIFRAS_PROMPT = `Analiza el siguiente titular y descripción de una noticia sobre el sismo de magnitud 7.4 en Chocó, Colombia, del 10 de agosto de 2026.
 Si la noticia menciona explícitamente una cifra ACTUALIZADA de muertos, heridos o desaparecidos a NIVEL PAÍS (el balance nacional total, atribuido a fuente oficial o confiable, ej. "asciende a 1.943 el número de muertos"), extrae el número exacto como entero, sin puntos ni comas de miles.
 Si la cifra es de un solo estado, municipio o localidad (ej. "el alcalde de Chacao reportó 58 fallecidos"), NO la uses — dejá el campo en null, porque no representa el total nacional.
 Si no menciona una cifra nueva a nivel país, deja el campo en null. No inventes ni redondees.

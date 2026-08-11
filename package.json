@@ -1,5 +1,5 @@
 {
-  "name": "vzla-sismo-feed",
+  "name": "colombia-sismo-feed",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "tsc -p tsconfig.test.json && node --test"
+    "test": "tsc -p tsconfig.test.json && node --test \"dist-test/tests/**/*.test.js\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.43.0",

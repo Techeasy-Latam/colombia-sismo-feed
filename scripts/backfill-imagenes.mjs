@@ -29,7 +29,7 @@ const META_IMAGE_RE = /<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image
 async function extraerImagenArticulo(url) {
   const res = await fetch(url, {
     signal: AbortSignal.timeout(8000),
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VzlaSismoFeedBot/1.0)' },
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ColSismoFeedBot/1.0)' },
   })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const ct = res.headers.get('content-type') ?? ''

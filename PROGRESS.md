@@ -1,19 +1,41 @@
 # Progress Log
 
 ## Current Verified State
-- Repository root: `g:/Projects/vzla-sismo-feed`
+- Repository root: `/home/frambuesa/Proyectos/Ajenos/Colombia/colombia-sismo-feed` (`colombia-sismo-feed`, forked from `vzla-sismo-feed` — see Session 013)
 - Standard startup path: `./init.sh` (pwd, Node check, `npm ci`, `npx tsc --noEmit`, `npm run build`, PWA artifact check)
-- Standard verification path: `npx tsc --noEmit` and `npm run build`. Last run: green.
+- Standard verification path: `npm ci`, `npx tsc --noEmit`, `npm test`, `npm run build`. Last run: green (all four).
 - Current branch: `master`
-- Node: v24.14.1 (local). Engine pin: `>=20.0.0` covers the team baseline.
-- npm: 11.14.1 (local). Team baseline: 11.13.0. Engine pin: `>=11.0.0`.
+- Node: v22.22.2 (local, this session). Engine pin: `>=20.0.0` covers the team baseline.
+- npm: 10.9.7 (local, this session). Engine pin: `>=11.0.0` (EBADENGINE warning on install, non-fatal).
 - Agent skills installed at project scope (`./.agents/skills/`, gitignored; `skills-lock.json` tracked). See Session 002.
 - Frontend visual refresh applied on `feat/agent-skills-frontend`. See Session 003.
 - Map UI/UX improvements (interactive legend magnitude filter, state filter, details card, 3D skeleton loading/guide) completed on `master`. See Session 010.
 - Dropdown select contrast accessibility fix in dark mode completed on `master`. See Session 011.
-- Current blocker: none for the verification harness. Local Supabase not provisioned (`.env.local` uses placeholders so dev server boots without a real DB; API routes now return fast degraded-mode empty responses in local dev).
+- Fork adapted end-to-end from the Venezuela event to the Chocó, Colombia sismo (10 ago 2026, M7.4): content/data (Session 012 chat, undocumented here at the time) plus CI, tests, migrations, scripts, project identity and docs (Session 013). See Session 013 and `DOCUMENTATION.md`.
+- Current blocker: none for the verification harness. Local Supabase not provisioned (`.env.local` uses placeholders so dev server boots without a real DB; API routes now return fast degraded-mode empty responses in local dev). Migrations under `supabase/migrations/` have not been applied to any live Colombia Supabase project yet.
 
 ## Session Log
+
+### Session 013 — 2026-08-10
+- Date: 2026-08-10
+- Goal: repo-wide audit and cleanup of remaining Venezuela-era residue (the fork's content/data layer — sources, factchecker, map, emergency numbers, donation orgs — had already been adapted to Colombia in an earlier chat session on the same day). Fix everything that blocks CI or would corrupt data if run: broken test suite, contradictory cron config, orphaned DB migration/component, hardcoded old-repo identity across configs and docs.
+- Completed:
+  - Fixed `tests/unit/sources.test.ts`: rewrote fixtures from Venezuela to Colombia strings; replaced the obsolete "venezolano doesn't match" gap test with one confirming `colombia` matches `colombiano`/`colombiana` as a substring.
+  - Fixed `npm test`: `node --test` with no path argument was auto-discovering the raw `tests/**/*.ts` sources (which fail ESM resolution) in addition to the compiled `dist-test/` output. Scoped the script to `node --test "dist-test/tests/**/*.test.js"` in [package.json](file:///home/frambuesa/Proyectos/Ajenos/Colombia/colombia-sismo-feed/package.json).
+  - Removed the `crons` block from [vercel.json](file:///home/frambuesa/Proyectos/Ajenos/Colombia/colombia-sismo-feed/vercel.json) (Vercel Hobby plan caps cron at once/day — was set to `0 0 * * *`, contradicting the 15-min ingest-cron GitHub Action). `.github/workflows/ingest-cron.yml` (`*/15 * * * *`) is now the single ingestion trigger.
+  - Deleted `supabase/migrations/007_cifras_evento.sql`: created an orphaned `cifras_evento` table (Venezuela defaults: M7.2/M7.5, Yaracuy/Carabobo, 920 muertos) never read by any app code — superseded by migration `009_cifras_por_noticia.sql`. No live Colombia Supabase project has run migrations yet, so removing outright (not compensating with a drop-migration) was safe.
+  - Updated `scripts/backfill-cifras.mjs` (Groq prompt context) and `scripts/backfill-imagenes.mjs` (`User-Agent`) to match the Colombia context already in `src/lib/factchecker.ts` and `src/app/api/ingest/route.ts`.
+  - Deleted orphaned [MapaEdificios3D.tsx](file:///home/frambuesa/Proyectos/Ajenos/Colombia/colombia-sismo-feed/src/components/MapaEdificios3D.tsx) (unused since the 3D tab was removed from `MapaSwitcher.tsx` earlier the same day — pointed at a Venezuela-specific ArcGIS webscene with no Chocó equivalent) and cleaned up the two remaining code comments that referenced it.
+  - Updated project identity: `package.json` name → `colombia-sismo-feed`; `LICENSE` copyright; `.env.example` site URL (+ fixed a garbled leftover line); `.github/workflows/ci.yml` hardcoded site URL; `.github/ISSUE_TEMPLATE/*.md` assignees; `CONTRIBUTING.md` clone URL and reviewer — all previously pointed at `renasarenas/vzla-sismo-feed` instead of the actual `git remote` (`punkyyy01/colombia-sismo-feed`).
+  - Rewrote `README.md` in full: badges, event description (no fixed casualty numbers — cifras are extracted live, not hand-edited), the "Fuentes activas" section (previously still listed the old Venezuela source roster, out of sync with the already-rewritten `src/lib/sources.ts`), env var example, setup/clone instructions, and the Vercel deploy steps (now describe the GitHub Actions cron secrets instead of the removed Vercel cron). Dropped the Build4Venezuela hackathon section rather than inventing a Colombia equivalent.
+  - Updated `PRODUCT.md` (Users section) and `DESIGN.md` (front-matter `name`/`description` + Overview paragraph) from Venezuela to Colombia.
+  - Created `archive/vzla-original/` (with its own explanatory README) and moved `outputs/` (design mockup HTML files), `guion-video-sismo-venezuela.md`, and `repomix-output.xml` into it — preserves the original project's history without mixing it into the active Colombia context.
+  - Added a `[0.3.0] — 2026-08-10 (Fork Colombia)` entry to `CHANGELOG.md` above the existing (preserved, unedited) Venezuela-era entries.
+  - Left untouched, by design: `supabase/migrations/008_backfill_zona.sql` (a historical one-off migration for old Venezuela rows, not something that runs again — a new migration would be added if Colombia ever needs an equivalent backfill), and the maintainer list in `SECURITY.md` (`renasarenas`/`punkyyyy01`) — no basis to infer whether the former still co-maintains this fork, flagged for the user to confirm instead of guessed.
+- Verification:
+  - `npx tsc --noEmit`, `npm test` (13/13 passing), and `npm run build` all completed successfully after every phase.
+- Commits:
+  - None — user explicitly requested no git operations this session.
 
 ### Session 012 — 2026-07-02
 - Date: 2026-07-02

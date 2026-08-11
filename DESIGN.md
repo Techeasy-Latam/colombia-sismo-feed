@@ -1,6 +1,6 @@
 ---
-name: Venezuela Sismo
-description: Dashboard de emergencia en tiempo real para sismos en Venezuela
+name: Colombia Sismo
+description: Dashboard de emergencia en tiempo real para sismos en Colombia
 colors:
   paper: "#F4F4F2"
   paper-dark: "#0D0D0D"
@@ -34,7 +34,7 @@ spacing:
 ---
 
 ## Overview
-El sistema visual de Venezuela Sismo adopta una estética editorial sobria y formal para transmitir urgencia, seriedad y confiabilidad en un contexto de crisis humanitaria. Evita las convenciones de plantillas SaaS contemporáneas e implementa contrastes elevados, espaciado rítmico y tipografía clásica inspirada en la prensa escrita.
+El sistema visual de Colombia Sismo adopta una estética editorial sobria y formal para transmitir urgencia, seriedad y confiabilidad en un contexto de crisis humanitaria. Evita las convenciones de plantillas SaaS contemporáneas e implementa contrastes elevados, espaciado rítmico y tipografía clásica inspirada en la prensa escrita.
 
 ## Colors
 La paleta se fundamenta en un esquema cromático neutro frío y desaturado con un único acento de crisis institucional:
