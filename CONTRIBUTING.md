@@ -11,8 +11,8 @@
 
 1. Haz fork del repo y clona tu fork:
    ```bash
-   git clone https://github.com/<tu-usuario>/vzla-sismo-feed.git
-   cd vzla-sismo-feed
+   git clone https://github.com/<tu-usuario>/colombia-sismo-feed.git
+   cd colombia-sismo-feed
    ```
 
 2. Instala dependencias:
@@ -82,4 +82,4 @@ Un commit por feature. No usar `git add .` si hay cambios mezclados en distintas
    npm run build
    ```
 
-4. Asigna a `renasarenas` como reviewer.
+4. Asigna a `punkyyy01` como reviewer.

@@ -5,10 +5,10 @@ import { createClient } from '@supabase/supabase-js'
 import type { Sismo } from './LeafletMap'
 import { MapaSismosView } from './MapaSismos'
 
-// ponytail: la vista 3D (MapaEdificios3D) apuntaba a un webscene de ArcGIS con
-// edificios de Catia La Mar, Venezuela — no hay equivalente real para Chocó, así
-// que se retira en vez de mostrar contenido de otro país como si fuera de acá.
-// Restaurar cuando se consiga (o genere) un webscene real de la zona afectada.
+// La vista 3D (antes MapaEdificios3D.tsx, eliminado) apuntaba a un webscene de
+// ArcGIS con edificios de Catia La Mar, Venezuela — sin equivalente real para
+// Chocó. Si se consigue o genera un webscene real de la zona afectada, se puede
+// reintroducir un componente y una entrada '3d' en TABS/LEAD.
 type View = '2d'
 
 const TABS: { id: View; label: string; meta: string }[] = [

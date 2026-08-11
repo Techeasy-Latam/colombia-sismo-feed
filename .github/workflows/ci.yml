@@ -33,4 +33,4 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SITE_URL: https://vzla-sismo-feed.vercel.app
+          NEXT_PUBLIC_SITE_URL: https://colombia-sismo-feed.vercel.app

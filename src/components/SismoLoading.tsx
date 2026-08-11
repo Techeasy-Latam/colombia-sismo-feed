@@ -2,8 +2,8 @@
 
 // Shared loading block: centered flex-col wrapper + animated seismogram trace
 // + caption. This exact block was copy-pasted across loading.tsx, mapa/page.tsx,
-// stats/page.tsx, MapaEdificios3D.tsx and SismosUSGS.tsx — consolidated here so
-// there's a single place to tweak the loading motif.
+// stats/page.tsx and SismosUSGS.tsx — consolidated here so there's a single
+// place to tweak the loading motif.
 import { SismoTrace } from './CardImage'
 
 export function SismoLoading({

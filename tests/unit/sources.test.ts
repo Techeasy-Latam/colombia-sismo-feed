@@ -8,32 +8,30 @@ import assert from 'node:assert/strict'
 import { preFiltroPasa, KEYWORDS_REQUERIDOS } from '../../src/lib/sources'
 
 test('passes when a required keyword appears in the title', () => {
-  assert.equal(preFiltroPasa('Terremoto sacude Venezuela', ''), true)
+  assert.equal(preFiltroPasa('Terremoto sacude Colombia', ''), true)
 })
 
 test('passes when the keyword appears only in the description', () => {
-  assert.equal(preFiltroPasa('Última hora', 'Fuerte sismo en Carabobo'), true)
+  assert.equal(preFiltroPasa('Última hora', 'Fuerte sismo en Chocó'), true)
 })
 
 test('is case-insensitive', () => {
-  assert.equal(preFiltroPasa('EARTHQUAKE HITS VENEZUELA', ''), true)
+  assert.equal(preFiltroPasa('EARTHQUAKE HITS COLOMBIA', ''), true)
 })
 
 test('matches English keywords for international sources', () => {
   assert.equal(preFiltroPasa('Rescue teams search the rubble', ''), true)
 })
 
-test('stem "venezuel" matches the English adjective "Venezuelan"', () => {
-  assert.equal(preFiltroPasa('Venezuelan government declares emergency', ''), true)
+test('the "colombia" keyword matches the Spanish adjectives "colombiano"/"colombiana" as a substring', () => {
+  // Unlike the old Venezuela list (stem "venezuel" did NOT match "venezolano",
+  // spelled with an "o"), "colombia" is a plain substring of "colombiano" and
+  // "colombiana", so no separate adjective entry is needed for this to pass.
+  assert.equal(preFiltroPasa('El gabinete colombiano se reúne hoy', ''), true)
 })
 
-test('KNOWN GAP: the Spanish adjective "venezolano" alone does NOT pass the filter', () => {
-  // "venezolano" is spelled with an "o" (venez-O-lano), so it does not contain
-  // the "venezuel" stem nor any other required keyword. A news item mentioning
-  // only "gobierno venezolano" — without "Venezuela" or a seismic term — is
-  // silently dropped before reaching the model. This asserts current behavior;
-  // if the keyword list is extended to cover "venezolan", update this test.
-  assert.equal(preFiltroPasa('El gabinete venezolano se reúne hoy', ''), false)
+test('matches a department name even without a seismic term', () => {
+  assert.equal(preFiltroPasa('Autoridades de Risaralda coordinan la respuesta', ''), true)
 })
 
 test('rejects when no required keyword is present', () => {

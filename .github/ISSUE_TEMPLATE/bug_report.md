@@ -3,7 +3,7 @@ name: Bug report
 about: Reportar un error en el feed o en la aplicación
 title: '[BUG] '
 labels: bug
-assignees: renasarenas
+assignees: punkyyy01
 ---
 
 ## Descripción
