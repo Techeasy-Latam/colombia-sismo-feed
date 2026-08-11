@@ -32,16 +32,16 @@ const sans = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Venezuela Sismo 24 jun — Feed verificado',
-  description: 'Noticias verificadas en tiempo real sobre los sismos del 24 de junio de 2026 en Venezuela.',
+  title: 'Colombia Sismo 10 ago — Feed verificado',
+  description: 'Noticias verificadas en tiempo real sobre el sismo del 10 de agosto de 2026 en Chocó, Colombia.',
   manifest: '/manifest.json',
   icons: {
     icon: '/icon-192.png',
     apple: '/icon-192.png',
   },
   openGraph: {
-    title: 'Venezuela Sismo 24 jun — Feed verificado',
-    description: 'Noticias verificadas en tiempo real sobre los sismos del 24 de junio de 2026 en Venezuela.',
+    title: 'Colombia Sismo 10 ago — Feed verificado',
+    description: 'Noticias verificadas en tiempo real sobre el sismo del 10 de agosto de 2026 en Chocó, Colombia.',
     type: 'website',
     images: [{ url: '/og.png' }],
   },

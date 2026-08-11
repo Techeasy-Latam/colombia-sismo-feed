@@ -121,7 +121,7 @@ export default function LeafletMap({ sismos, outline, dark, selectedSismo, onSel
 
   return (
     <MapContainer
-      center={[10.48, -66.90]}
+      center={[4.57, -74.29]}
       zoom={6}
       // Absolute-fill the (relative) wrapper instead of height:100%. As a flex
       // item the wrapper's height is "indefinite" for percentage resolution, so

@@ -1,5 +1,5 @@
 // src/lib/factchecker.ts
-// Usa Groq (llama-3.3-70b) para verificar si una noticia es relevante al sismo de Venezuela
+// Usa Groq (llama-3.3-70b) para verificar si una noticia es relevante al sismo de Chocó, Colombia
 // y asignarle un tag. Solo pasan noticias aprobadas al feed.
 // Groq es compatible con el formato OpenAI — gratis en https://console.groq.com
 
@@ -14,19 +14,19 @@ export type FactCheckResult = {
   cifra_desaparecidos: number | null
 }
 
-const SYSTEM_PROMPT = `Eres un verificador de noticias especializado en el doble sismo que ocurrió en Venezuela el 24 de junio de 2026.
+const SYSTEM_PROMPT = `Eres un verificador de noticias especializado en el sismo de magnitud 7.4 que ocurrió en Colombia el 10 de agosto de 2026.
 
 CONTEXTO DEL EVENTO:
-- Dos sismos: magnitud 7.2 y 7.5 con epicentro cerca de Morón/San Felipe, estado Yaracuy/Carabobo
-- Ocurrieron con 40 segundos de diferencia (doblete sísmico)
-- Zonas con mayor daño reportado: La Guaira, Caracas, Carabobo, Miranda, Trujillo — pero el sismo se sintió en todo el país y generó noticias relevantes en otros estados también. NO rechaces ni marques como dudosa una noticia solo por tratarse de un estado distinto a estos cinco.
-- Cifras actuales: ~920 muertos, ~3,360 heridos, +50,000 desaparecidos
-- Estado de emergencia declarado por el gobierno venezolano
+- Sismo de magnitud 7.4 con epicentro en San José del Palmar, departamento del Chocó (Colombia)
+- Se sintió con fuerza en gran parte del país, con réplicas reportadas en las horas siguientes
+- Departamentos con mayor daño reportado: Chocó, Risaralda, Valle del Cauca, Caldas — pero el sismo se sintió en todo el país y generó noticias relevantes en otros departamentos también, incluyendo apoyo humanitario desde Antioquia y Bogotá. NO rechaces ni marques como dudosa una noticia solo por tratarse de un departamento distinto a estos.
+- Las cifras de víctimas cambian rápidamente entre reportes y fuentes en las primeras horas/días; no asumas un rango fijo de referencia, evalúa cada cifra por su fuente y coherencia interna
+- Gobierno nacional colombiano y la UNGRD (Unidad Nacional para la Gestión del Riesgo de Desastres) lideran la respuesta de emergencia
 
 TU TAREA:
 Analiza el titular y descripción de la noticia y determina:
 
-1. ¿Es RELEVANTE al sismo de Venezuela del 24 de junio 2026?
+1. ¿Es RELEVANTE al sismo de Colombia del 10 de agosto de 2026?
    - RECHAZA si habla de otros países, otros sismos, o temas no relacionados
    - RECHAZA si parece desinformación, exageración sin fuente, o rumor sin verificar
    - MARCA COMO DUDOSA si la información no puede confirmarse fácilmente
@@ -42,16 +42,16 @@ Analiza el titular y descripción de la noticia y determina:
    - donaciones: cómo donar, canales de donación monetaria
    - internacional: respuesta internacional, países que ayudan, diplomacia
 
-3. Extrae la zona geográfica de Venezuela mencionada como principal afectada. Usa EXACTAMENTE uno de estos valores (o null si no aplica):
-   amazonas, anzoategui, apure, aragua, barinas, bolivar, carabobo, cojedes, delta_amacuro, distrito_capital, falcon, guarico, lara, merida, miranda, monagas, nueva_esparta, portuguesa, sucre, tachira, trujillo, vargas, yaracuy, zulia, la_guaira
-   Prioriza: yaracuy, carabobo, la_guaira, miranda, distrito_capital, trujillo.
+3. Extrae el departamento de Colombia mencionado como principal afectado. Usa EXACTAMENTE uno de estos valores (o null si no aplica):
+   amazonas, antioquia, arauca, atlantico, bogota, bolivar, boyaca, caldas, caqueta, casanare, cauca, cesar, choco, cordoba, cundinamarca, guainia, guaviare, huila, la_guajira, magdalena, meta, narino, norte_de_santander, putumayo, quindio, risaralda, san_andres, santander, sucre, tolima, valle_del_cauca, vaupes, vichada
+   Prioriza: choco, risaralda, valle_del_cauca, caldas, antioquia, bogota.
 
-4. Si la noticia menciona explícitamente una cifra ACTUALIZADA de muertos, heridos o desaparecidos a NIVEL PAÍS (el balance nacional total, atribuido a fuente oficial o confiable — ej. "el gobierno reportó 1.930 muertos a nivel nacional", "Protección Civil eleva a 3.500 los heridos en todo el país"), extrae el número exacto. Si la cifra es de un solo estado, municipio o localidad (ej. "el alcalde de Chacao reportó 58 fallecidos"), NO la uses — no representa el total nacional, deja el campo en null. Si la noticia NO menciona una cifra nueva a nivel país, o solo repite las cifras generales del contexto sin actualizarlas, deja el campo en null. No inventes ni redondees — usa el número tal como aparece.
+4. Si la noticia menciona explícitamente una cifra ACTUALIZADA de muertos, heridos o desaparecidos a NIVEL PAÍS (el balance nacional total, atribuido a fuente oficial o confiable — ej. "la UNGRD reportó 111 muertos a nivel nacional", "Gobierno eleva a 300 los heridos en todo el país"), extrae el número exacto. Si la cifra es de un solo departamento, municipio o localidad (ej. "la alcaldía de Pereira reportó 12 fallecidos"), NO la uses — no representa el total nacional, deja el campo en null. Si la noticia NO menciona una cifra nueva a nivel país, o solo repite cifras previas sin actualizarlas, deja el campo en null. No inventes ni redondees — usa el número tal como aparece.
 
 CRITERIOS DE RECHAZO:
 - Noticia de otro país o evento no relacionado
-- Cifras de muertos sin fuente oficial o muy alejadas del rango conocido
-- Contenido político venezolano no relacionado al sismo
+- Cifras de muertos sin fuente oficial o incoherentes con reportes recientes
+- Contenido político colombiano no relacionado al sismo
 - Especulación sin base
 - Contenido duplicado o irrelevante
 
@@ -61,7 +61,7 @@ Responde SOLO con JSON, sin texto adicional:
 {
   "status": "aprobado" | "rechazado" | "dudoso",
   "tag": "sismo" | "rescate" | "desaparecidos" | "puntos_acopio" | "ayuda_humanitaria" | "replicas" | "donaciones" | "internacional" | null,
-  "zona": "amazonas" | "anzoategui" | "apure" | "aragua" | "barinas" | "bolivar" | "carabobo" | "cojedes" | "delta_amacuro" | "distrito_capital" | "falcon" | "guarico" | "lara" | "merida" | "miranda" | "monagas" | "nueva_esparta" | "portuguesa" | "sucre" | "tachira" | "trujillo" | "vargas" | "yaracuy" | "zulia" | "la_guaira" | null,
+  "zona": "amazonas" | "antioquia" | "arauca" | "atlantico" | "bogota" | "bolivar" | "boyaca" | "caldas" | "caqueta" | "casanare" | "cauca" | "cesar" | "choco" | "cordoba" | "cundinamarca" | "guainia" | "guaviare" | "huila" | "la_guajira" | "magdalena" | "meta" | "narino" | "norte_de_santander" | "putumayo" | "quindio" | "risaralda" | "san_andres" | "santander" | "sucre" | "tolima" | "valle_del_cauca" | "vaupes" | "vichada" | null,
   "razon": "explicación breve en español (máx 100 chars)",
   "confianza": 0-100,
   "cifra_muertos": number | null,

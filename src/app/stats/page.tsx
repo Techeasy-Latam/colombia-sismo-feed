@@ -143,7 +143,7 @@ export default function StatsPage() {
           Reportes verificados por sección
         </h1>
         <p className="text-lead text-ink/75 dark:text-ink-dark/75 mt-4 max-w-prose">
-          Distribución de los reportes confirmados y balance oficial de daños desde el sismo del 24 de junio de 2026.
+          Distribución de los reportes confirmados y balance oficial de daños desde el sismo del 10 de agosto de 2026.
         </p>
       </header>
 
@@ -166,7 +166,7 @@ export default function StatsPage() {
                   Fallecidos
                 </span>
                 <p className="font-serif text-hero lg:text-display text-ink dark:text-ink-dark mt-4 mb-2 font-semibold tnum">
-                  {cifras.muertos !== null ? Intl.NumberFormat('es-VE').format(cifras.muertos) : '—'}
+                  {cifras.muertos !== null ? Intl.NumberFormat('es-CO').format(cifras.muertos) : '—'}
                 </p>
               </div>
               {cifras.muertos_fuente && (
@@ -183,7 +183,7 @@ export default function StatsPage() {
                   Heridos
                 </span>
                 <p className="font-serif text-hero lg:text-display text-ink dark:text-ink-dark mt-4 mb-2 font-semibold tnum">
-                  {cifras.heridos !== null ? Intl.NumberFormat('es-VE').format(cifras.heridos) : '—'}
+                  {cifras.heridos !== null ? Intl.NumberFormat('es-CO').format(cifras.heridos) : '—'}
                 </p>
               </div>
               {cifras.heridos_fuente && (
@@ -200,7 +200,7 @@ export default function StatsPage() {
                   Desaparecidos
                 </span>
                 <p className="font-serif text-hero lg:text-display text-ink dark:text-ink-dark mt-4 mb-2 font-semibold tnum">
-                  {cifras.desaparecidos !== null ? Intl.NumberFormat('es-VE').format(cifras.desaparecidos) : '—'}
+                  {cifras.desaparecidos !== null ? Intl.NumberFormat('es-CO').format(cifras.desaparecidos) : '—'}
                 </p>
               </div>
               {cifras.desaparecidos_fuente && (

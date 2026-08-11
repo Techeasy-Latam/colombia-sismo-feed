@@ -28,62 +28,43 @@ type Organizacion = {
 
 const ORGANIZACIONES: Organizacion[] = [
   {
+    nombre: 'UNGRD',
+    descripcion: 'Unidad Nacional para la Gestión del Riesgo de Desastres — coordina la respuesta oficial del Gobierno colombiano y centraliza los canales de ayuda verificados.',
+    url: 'https://www.gestiondelriesgo.gov.co',
+  },
+  {
+    nombre: 'Defensa Civil Colombiana',
+    descripcion: 'Labores de búsqueda, rescate y atención humanitaria de primera respuesta en las zonas afectadas del Chocó y el Eje Cafetero.',
+    url: 'https://www.defensacivil.gov.co',
+  },
+  {
+    nombre: 'Cruz Roja Colombiana',
+    descripcion: 'Atención de emergencia, primeros auxilios y reunificación familiar con presencia en los departamentos afectados.',
+  },
+  {
     nombre: 'World Central Kitchen',
-    descripcion: 'Chef José Andrés — ya desplegada en Venezuela distribuyendo comidas calientes a familias afectadas y rescatistas. Comprometió un millón de dólares de su fundación.',
-    url: 'https://donate.wck.org/team/835442',
+    descripcion: 'Chef José Andrés — despliega equipos para distribuir comidas calientes a familias afectadas y rescatistas en zonas de desastre.',
+    url: 'https://www.wck.org/relief',
   },
   {
-    nombre: 'Cáritas Venezuela',
-    descripcion: 'Décadas de presencia en el país. Despliegue de emergencia inmediato vía su red diocesana, con centros de acopio en varias zonas afectadas.',
-    url: 'https://caritas.org.ve',
+    nombre: 'Cáritas Colombiana',
+    descripcion: 'Red diocesana con presencia en todo el país; despliegue de emergencia inmediato y centros de acopio en las zonas afectadas.',
+    url: 'https://caritascolombiana.org',
   },
   {
-    nombre: 'Global Empowerment Mission',
-    descripcion: 'Movilizada en alianza con I Love Venezuela, su socio local de largo plazo en el país.',
-    url: 'https://globalempowermentmission.org/mission/venezuela-earthquakes',
-  },
-  {
-    nombre: 'Hogar Bambi Venezuela',
-    descripcion: 'Trabaja con niñas, niños y adolescentes en Venezuela. Acepta donaciones en dólares.',
-    url: 'https://hogarbambi.org/donar-ahora',
-  },
-  {
-    nombre: 'Fundación AmCham',
-    descripcion: 'Cámara Venezolano-Americana — fondo específico para el terremoto, cobro vía Stripe desde fuera de Venezuela.',
-  },
-  {
-    nombre: 'We Love Foundation',
-    descripcion: 'I Love Venezuela — con base en Miami, distribuye fondos a grupos verificados: kits médicos, agua y comida.',
-  },
-  {
-    nombre: 'GoFundMe',
-    descripcion: 'Emergency Relief for Venezuela — campaña de recaudación abierta para asistencia de emergencia.',
-    url: 'https://gofundme.com',
-  },
-  {
-    nombre: 'JustGiving',
-    descripcion: 'Healing Venezuela — apoya hospitales, médicos y servicios de rescate en el país.',
-    url: 'https://justgiving.com/campaign/venezuelaearthquake2026',
-  },
-  {
-    nombre: 'People in Need',
-    descripcion: 'SOS Venezuela — ONG internacional con apelación dedicada al terremoto.',
-    url: 'https://peopleinneed.net',
+    nombre: 'ABACO — Bancos de Alimentos de Colombia',
+    descripcion: 'Red nacional de bancos de alimentos que canaliza donaciones de insumos hacia los departamentos afectados por el sismo.',
+    url: 'https://www.abaco.org.co',
   },
   {
     nombre: 'ACNUR — USA for UNHCR',
-    descripcion: 'La Agencia de la ONU para Refugiados está activa en Venezuela. En algunos períodos ofreció triplicar donaciones mensuales.',
+    descripcion: 'La Agencia de la ONU para los Refugiados apoya a la población desplazada por el desastre en Colombia.',
     url: 'https://unhcr.org',
   },
   {
-    nombre: 'Somos AlumnUSB',
-    descripcion: 'Comunidad de egresados de la USB canalizando apoyo de forma ágil y directa hacia familias afectadas.',
-    url: 'https://alumnusb.org/ayuda-tras-terremoto/',
-  },
-  {
-    nombre: 'Dona con Yummy',
-    descripcion: 'Campaña de la súper-app venezolana Yummy para canalizar donaciones hacia la ayuda a los afectados por el sismo, con recaudación digital directa.',
-    url: 'https://dona.yummyrides.com/',
+    nombre: 'GoFundMe',
+    descripcion: 'Plataforma de recaudación donde suelen abrirse campañas verificadas de ayuda de emergencia — confirmá la legitimidad de cada campaña antes de donar.',
+    url: 'https://gofundme.com',
   },
 ]
 
@@ -299,7 +280,7 @@ export default function DonarPage() {
             transition={{ duration: 0.45, delay: 0.1 }}
             className="text-lead text-ink/75 dark:text-ink-dark/75 mt-3 max-w-prose"
           >
-            Directorio verificado de organizaciones y requerimientos urgentes de ayuda humanitaria para los afectados por el sismo en Venezuela. Tocá cualquier recurso para acceder a los canales oficiales.
+            Directorio verificado de organizaciones y requerimientos urgentes de ayuda humanitaria para los afectados por el sismo en Chocó, Colombia. Tocá cualquier recurso para acceder a los canales oficiales.
           </motion.p>
         </div>
       </div>
@@ -345,31 +326,31 @@ export default function DonarPage() {
             Seguridad en la donación
           </h3>
           <p className="text-small text-ink/75 dark:text-ink-dark/75 max-w-prose mb-4">
-            Antes de transferir fondos a cualquier campaña personal o de terceros no listados, verificá su legitimidad en{' '}
-            <a href="https://donarseguro.com" target="_blank" rel="noopener noreferrer" className="text-crisis-red font-medium hover:underline">
-              donarseguro.com
+            Antes de transferir fondos a cualquier campaña personal o de terceros no listados, verificá su legitimidad contra los canales oficiales de la{' '}
+            <a href="https://www.gestiondelriesgo.gov.co" target="_blank" rel="noopener noreferrer" className="text-crisis-red font-medium hover:underline">
+              UNGRD
             </a>
-            , una plataforma ciudadana dedicada a validar iniciativas de ayuda humanitaria para el terremoto de Venezuela.
+            , la entidad que coordina y valida las iniciativas de ayuda humanitaria para el sismo de Chocó.
           </p>
           <div className="border-t border-rule dark:border-rule-dark pt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] text-ink-muted dark:text-ink-muted-dark">
             <span>
               Fuentes oficiales y reportes:{' '}
               <a
-                href="https://lga.lagranaldea.com/2026/06/28/guia-completa-para-ayudar-a-venezuela-tras-el-terremoto-donde-buscar-personas-como-donar-y-que-hacer/"
+                href="https://www.gestiondelriesgo.gov.co"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-ink dark:hover:text-ink-dark transition-colors"
               >
-                La Gran Aldea
+                UNGRD
               </a>
               {' · '}
               <a
-                href="https://alumnusb.org/ayuda-tras-terremoto/"
+                href="https://www.sgc.gov.co"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-ink dark:hover:text-ink-dark transition-colors"
               >
-                AlumnUSB
+                Servicio Geológico Colombiano
               </a>
             </span>
           </div>

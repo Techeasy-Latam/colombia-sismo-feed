@@ -49,7 +49,7 @@ async function extraerImagenArticulo(url: string): Promise<string | null> {
   try {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(5000),
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VzlaSismoFeedBot/1.0)' },
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ColSismoFeedBot/1.0)' },
     })
     if (!res.ok) return null
     const ct = res.headers.get('content-type') ?? ''
@@ -240,10 +240,10 @@ async function ingestUSGS(supabase: any, nombreFuente: string, url: string): Pro
       const lugar: string = props.place ?? ''
       const mag: number = props.mag ?? 0
 
-      // Solo sismos que sean en Venezuela Y de magnitud >= 4.0.
+      // Solo sismos que sean en Colombia Y de magnitud >= 4.0.
       // Con && la condición dejaría pasar cualquier sismo M4+ del mundo entero
       // (De Morgan: NOT A AND NOT B ≡ NOT(A OR B)); el || correcto exige ambas condiciones.
-      if (!lugar.toLowerCase().includes('venezuela') || mag < 4.0) continue
+      if (!lugar.toLowerCase().includes('colombia') || mag < 4.0) continue
 
       const eventoUrl: string = props.url ?? ''
       if (!eventoUrl) continue

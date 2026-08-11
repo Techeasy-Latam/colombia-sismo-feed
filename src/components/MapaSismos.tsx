@@ -9,31 +9,40 @@ const LeafletMap = dynamic(() => import('./LeafletMap'), { ssr: false })
 
 // Zones list for the select filter (matching FeedNoticias)
 const ZONAS = [
-  { value: 'todos', label: 'Toda Venezuela' },
-  { value: 'la_guaira', label: 'La Guaira' },
-  { value: 'caracas', label: 'Caracas' },
-  { value: 'miranda', label: 'Miranda' },
-  { value: 'carabobo', label: 'Carabobo' },
-  { value: 'yaracuy', label: 'Yaracuy' },
-  { value: 'trujillo', label: 'Trujillo' },
-  { value: 'aragua', label: 'Aragua' },
-  { value: 'falcon', label: 'Falcón' },
-  { value: 'lara', label: 'Lara' },
-  { value: 'zulia', label: 'Zulia' },
-  { value: 'merida', label: 'Mérida' },
-  { value: 'tachira', label: 'Táchira' },
-  { value: 'barinas', label: 'Barinas' },
-  { value: 'portuguesa', label: 'Portuguesa' },
-  { value: 'guarico', label: 'Guárico' },
-  { value: 'anzoategui', label: 'Anzoátegui' },
-  { value: 'sucre', label: 'Sucre' },
-  { value: 'monagas', label: 'Monagas' },
-  { value: 'nueva_esparta', label: 'Nueva Esparta' },
-  { value: 'apure', label: 'Apure' },
+  { value: 'todos', label: 'Toda Colombia' },
+  { value: 'choco', label: 'Chocó' },
+  { value: 'valle_del_cauca', label: 'Valle del Cauca' },
+  { value: 'risaralda', label: 'Risaralda' },
+  { value: 'antioquia', label: 'Antioquia' },
+  { value: 'caldas', label: 'Caldas' },
+  { value: 'quindio', label: 'Quindío' },
+  { value: 'cauca', label: 'Cauca' },
+  { value: 'narino', label: 'Nariño' },
+  { value: 'bogota', label: 'Bogotá' },
+  { value: 'cundinamarca', label: 'Cundinamarca' },
+  { value: 'santander', label: 'Santander' },
+  { value: 'norte_de_santander', label: 'Norte de Santander' },
+  { value: 'tolima', label: 'Tolima' },
+  { value: 'huila', label: 'Huila' },
+  { value: 'boyaca', label: 'Boyacá' },
+  { value: 'atlantico', label: 'Atlántico' },
   { value: 'bolivar', label: 'Bolívar' },
+  { value: 'cesar', label: 'Cesar' },
+  { value: 'cordoba', label: 'Córdoba' },
+  { value: 'magdalena', label: 'Magdalena' },
+  { value: 'la_guajira', label: 'La Guajira' },
+  { value: 'sucre', label: 'Sucre' },
+  { value: 'meta', label: 'Meta' },
+  { value: 'casanare', label: 'Casanare' },
+  { value: 'arauca', label: 'Arauca' },
+  { value: 'caqueta', label: 'Caquetá' },
+  { value: 'putumayo', label: 'Putumayo' },
   { value: 'amazonas', label: 'Amazonas' },
-  { value: 'delta_amacuro', label: 'Delta Amacuro' },
-  { value: 'cojedes', label: 'Cojedes' },
+  { value: 'guainia', label: 'Guainía' },
+  { value: 'guaviare', label: 'Guaviare' },
+  { value: 'vaupes', label: 'Vaupés' },
+  { value: 'vichada', label: 'Vichada' },
+  { value: 'san_andres', label: 'San Andrés y Providencia' },
 ]
 
 const MAG_LEGEND = [
@@ -159,7 +168,7 @@ export function MapaSismosView({ sismos, outline, dark }: Props) {
           {/* Zone Selector */}
           <div>
             <label htmlFor="map-zona" className="block text-eyebrow uppercase text-ink-muted dark:text-ink-muted-dark mb-1.5">
-              Filtrar por Estado
+              Filtrar por Departamento
             </label>
             <div className="relative">
               <select
@@ -275,7 +284,7 @@ export function MapaSismosView({ sismos, outline, dark }: Props) {
                     </div>
                     <div>
                       <span className="block text-[10px] text-ink-muted dark:text-ink-muted-dark uppercase tracking-wider">
-                        Estado / Zona
+                        Departamento / Zona
                       </span>
                       <span className="text-small font-bold text-ink dark:text-ink-dark capitalize">
                         {finalSelectedSismo.zona ? finalSelectedSismo.zona.replace('_', ' ') : 'N/D'}

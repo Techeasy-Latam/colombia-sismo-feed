@@ -88,30 +88,6 @@ function NumberRow({ href, label, number }: NumberRowProps) {
   )
 }
 
-type MultiNumberCardProps = {
-  label: string
-  numbers: { number: string; href: string }[]
-}
-
-function MultiNumberCard({ label, numbers }: MultiNumberCardProps) {
-  return (
-    <div className="bg-panel dark:bg-panel-dark border border-rule dark:border-rule-dark p-3.5 rounded-sm flex flex-col gap-2.5">
-      <span className="text-small font-sans text-ink/80 dark:text-ink-dark/80 font-medium">{label}</span>
-      <div className="flex gap-2">
-        {numbers.map((item) => (
-          <a
-            key={item.number}
-            href={item.href}
-            className="flex-1 text-center py-2 bg-paper dark:bg-paper-dark border border-rule dark:border-rule-dark rounded-sm text-small font-serif font-bold text-ink dark:text-ink-dark hover:border-crisis-red/20 dark:hover:border-crisis-red/30 hover:bg-panel dark:hover:bg-panel-dark transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
-          >
-            {item.number}
-          </a>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function PlatformCard({ href, icon, title, description, badgeColor = 'blue' }: { href: string; icon: React.ReactNode; title: string; description: string; badgeColor?: 'blue' | 'purple' }) {
   const isBlue = badgeColor === 'blue'
   return (
@@ -218,46 +194,33 @@ export function NumerosEmergencia() {
             <section className="space-y-3">
               <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Líneas Generales</h3>
               <div className="grid grid-cols-2 gap-2.5">
-                <NumberCard href="tel:911" label="Movistar" number="911" variant="emergency" />
-                <NumberCard href="tel:171" label="CANTV fijos" number="171" variant="emergency" />
-                <NumberCard href="tel:112" label="Digitel" number="112" variant="emergency" />
-                <NumberCard href="tel:*1" label="Movilnet" number="*1" variant="emergency" />
+                <NumberCard href="tel:123" label="Línea única (SOS)" number="123" variant="emergency" />
+                <NumberCard href="tel:112" label="Policía Nacional" number="112" variant="emergency" />
+                <NumberCard href="tel:119" label="Bomberos" number="119" variant="emergency" />
+                <NumberCard href="tel:125" label="Ambulancias" number="125" variant="emergency" />
               </div>
             </section>
 
             <hr className="border-rule dark:border-rule-dark" />
 
-            {/* Protección Civil */}
+            {/* Defensa Civil y Cruz Roja */}
             <section className="space-y-3">
-              <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Protección Civil</h3>
+              <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Defensa Civil y Cruz Roja</h3>
               <div className="space-y-2.5">
-                <NumberRow href="tel:08005588427" label="Nacionales (Central)" number="0800-5588427" />
-                <NumberRow href="tel:04242075335" label="La Guaira" number="0424-2075335" />
-                <MultiNumberCard label="Caracas (Central)" numbers={[
-                  { number: "(0212) 575-1823", href: "tel:02125751823" },
-                  { number: "(0212) 631-8662", href: "tel:02126318662" }
-                ]} />
-                <MultiNumberCard label="Caracas (Libertador)" numbers={[
-                  { number: "0800-725-3661", href: "tel:08007253661" },
-                  { number: "(0212) 541-0830", href: "tel:02125410830" }
-                ]} />
+                <NumberRow href="tel:144" label="Defensa Civil Colombiana" number="144" />
+                <NumberRow href="tel:132" label="Cruz Roja Colombiana" number="132" />
+                <NumberRow href="tel:3212139525" label="Cruz Roja — Reunificación familiar" number="321 213 9525" />
               </div>
             </section>
 
             <hr className="border-rule dark:border-rule-dark" />
 
-            {/* Bomberos */}
+            {/* Atención a Desastres */}
             <section className="space-y-3">
-              <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Bomberos</h3>
+              <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Atención a Desastres</h3>
               <div className="space-y-2.5">
-                <MultiNumberCard label="Caracas Metropolitana" numbers={[
-                  { number: "(0212) 545-4545", href: "tel:02125454545" },
-                  { number: "(0212) 542-0243", href: "tel:02125420243" }
-                ]} />
-                <MultiNumberCard label="La Guaira" numbers={[
-                  { number: "(0212) 332-7620", href: "tel:02123327620" },
-                  { number: "(0212) 331-0445", href: "tel:02123310445" }
-                ]} />
+                <NumberRow href="tel:111" label="Atención a desastres (UNGRD)" number="111" />
+                <NumberRow href="tel:127" label="Policía de Tránsito" number="127" />
               </div>
             </section>
 
@@ -267,14 +230,13 @@ export function NumerosEmergencia() {
             <section className="space-y-3">
               <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Seguridad y Reportes</h3>
               <div className="space-y-2.5">
-                <NumberRow href="tel:08007654242" label="Policía Nacional" number="0800-765-4242" />
                 <div className="bg-panel dark:bg-panel-dark border border-rule dark:border-rule-dark p-3.5 rounded-sm flex flex-col gap-2.5">
-                  <span className="text-small font-sans text-ink/80 dark:text-ink-dark/80 font-medium">FUNVISIS — Reporte de sismos</span>
+                  <span className="text-small font-sans text-ink/80 dark:text-ink-dark/80 font-medium">Servicio Geológico Colombiano — Reporte de sismos</span>
                   <a
-                    href="tel:08008362567"
+                    href="tel:6012000200"
                     className="block text-center py-2 bg-paper dark:bg-paper-dark border border-rule dark:border-rule-dark rounded-sm text-small font-serif font-bold text-ink dark:text-ink-dark hover:border-crisis-red/20 dark:hover:border-crisis-red/30 hover:bg-panel dark:hover:bg-panel-dark transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
                   >
-                    0-800-TEMBLOR (0800-8362567)
+                    (601) 200-0200
                   </a>
                 </div>
               </div>
@@ -287,9 +249,9 @@ export function NumerosEmergencia() {
               <h3 className="text-eyebrow text-ink-muted dark:text-ink-muted-dark font-semibold">Plataformas Oficiales</h3>
               <div className="space-y-2.5">
                 <PlatformCard
-                  href="https://venapp.gob.ve"
-                  title="VENApp"
-                  description="App oficial para reportar emergencias de infraestructura y civiles."
+                  href="https://www.gestiondelriesgo.gov.co"
+                  title="UNGRD"
+                  description="Coordinación oficial de la respuesta ante el sismo y canales de ayuda verificados."
                   badgeColor="blue"
                   icon={
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -299,14 +261,25 @@ export function NumerosEmergencia() {
                   }
                 />
                 <PlatformCard
-                  href="https://sismo2026.gob.ve"
-                  title="Desaparecidos Terremoto VE"
+                  href="https://colombiatebusca.com"
+                  title="Colombia Te Busca"
                   description="Registro civil y búsqueda activa de personas afectadas por el sismo."
                   badgeColor="purple"
                   icon={
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <circle cx="11" cy="11" r="8" />
                       <path d="m21 21-4.3-4.3" />
+                    </svg>
+                  }
+                />
+                <PlatformCard
+                  href="https://sismosentido.sgc.gov.co"
+                  title="Sismo Sentido — SGC"
+                  description="Reportá si sentiste el sismo o una réplica en tu ubicación."
+                  badgeColor="blue"
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M3 12h4l3 8 4-16 3 8h4" />
                     </svg>
                   }
                 />
